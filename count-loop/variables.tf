@@ -8,11 +8,9 @@ variable "instance_type" {
     default = "t3.micro"
 }
 
-variable "tags" {
+variable "common_tags" {
     type = map
     default = {
-
-        Name = "terraform"
         Project = "expense"
         Componenet = "frontend"
         Environment = "Dev"
@@ -50,3 +48,17 @@ variable "ingress_cidr" {
 variable "environment" {
     default = "prod"
 }
+
+variable "instance_names" {
+    type = list(string)
+    default = ["mysql", "backend", "frontend"]
+}
+
+# variable "common_tags" {
+#     type = map
+#     default = {
+#         Project = "expense"
+#         componenet = "frontend"
+#         Environment = "dev"
+#     }
+# }

@@ -20,14 +20,27 @@ resource "aws_security_group" "sg_allow-ssh" {
         ipv6_cidr_blocks = ["::/0"]
     }
 
-    tags = var.tags
-}
+    tags = merge(
 
-resource "aws_instance" "terraform" {
+      var.common_tags,
+      {
+        Name = "Allow-SSH-22"
+      }
+    )
+}
+  instance_type = var.instance_names[count.index] == "mysql" ? "t3.small" : "t3.micro"
+resource "aws_instance" "expense" {
+  count = length(var.instance_names)
   ami = var.image_id
-  instance_type = var.environment=="prod" ? "t3.small" : "t3.micro"
+  instance_type = "t3.micro"
   vpc_security_group_ids = [aws_security_group.sg_allow-ssh.id]
   
-  tags = var.tags
-  
+
+  tags = merge(
+
+      var.common_tags,
+      {
+         Name = var.instance_names[count.index]
+      }
+    )
 }

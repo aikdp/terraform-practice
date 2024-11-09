@@ -7,7 +7,7 @@ terraform {
   }
     backend "s3" {
     bucket         	   = "kdp-remote-state"
-    key              	   = "practice-remote-state"
+    key              	   = "remote-state-foreach"
     region         	   = "us-east-1"
     dynamodb_table = "tf-nov-locking"
   }

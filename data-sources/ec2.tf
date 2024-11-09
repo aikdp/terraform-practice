@@ -25,7 +25,7 @@ resource "aws_security_group" "sg_allow-ssh" {
 }
 
 resource "aws_instance" "terraform" {
-  ami = "ami-09c813fb71547fc4f"
+  ami = data.aws_ami.devops.image_id
   instance_type = "t3.micro"
   vpc_security_group_ids = [aws_security_group.sg_allow-ssh.id]
   tags = {

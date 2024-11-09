@@ -31,4 +31,8 @@ resource "aws_instance" "terraform" {
   tags = {
     Name = "terraform"
   }
+
+   provisioner "local-exec" {
+    command = "echo The server's IP address is ${self.private_ip} > private_ip.txt"
+  }
 }

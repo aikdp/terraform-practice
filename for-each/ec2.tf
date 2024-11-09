@@ -24,11 +24,13 @@ resource "aws_security_group" "sg_allow-ssh" {
     }
 }
 
-resource "aws_instance" "terraform" {
+resource "aws_instance" "expense" {
+  for_each = var.instances       #this variable is map
+  #For_each will give us a specila variable with name EACH
   ami = "ami-09c813fb71547fc4f"
-  instance_type = "t3.micro"
+  instance_type = each.value
   vpc_security_group_ids = [aws_security_group.sg_allow-ssh.id]
   tags = {
-    Name = "terraform"
+    Name = each.key
   }
 }
